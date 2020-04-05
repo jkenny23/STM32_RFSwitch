@@ -36,8 +36,10 @@ uint32 last_tick = 0;
 uint32 last_ms_tick = 0;
 
 uint8 level_1 = DEF_LEVEL;
+uint8 last_level_1 = DEF_LEVEL;
 uint16 delay_1 = DEF_DELAY;
 uint8 level_2 = DEF_LEVEL;
+uint8 last_level_2 = DEF_LEVEL;
 uint16 delay_2 = DEF_DELAY;
 uint8 rfsw_1 = DEF_LEVEL;
 uint8 rfsw_2 = DEF_LEVEL;
@@ -375,6 +377,7 @@ void loop() {
           {
             digitalWrite(OD_1,HIGH);
             count1 = 0;
+            last_level_1 = 1;
             Serial.println("\r\n");
             Serial.print("OD1: ");
             Serial.print(level_1);
@@ -391,6 +394,7 @@ void loop() {
           {
             digitalWrite(OD_2,HIGH);
             count2 = 0;
+            last_level_2 = 1;
             Serial.println("\r\n");
             Serial.print("OD2: ");
             Serial.print(level_2);
@@ -520,16 +524,26 @@ void loop() {
     {
       digitalWrite(OD_1,LOW);
       level_1 = 0;
-      Serial.print("OD1: ");
-      Serial.println(level_1);
+      if(last_level_1 != level_1)
+      {
+        Serial.print("\r\nOD1: ");
+        Serial.println(level_1);
+        Serial.print("\r\n> ");
+        last_level_1 = level_1;
+      }
     }
     count2++;
     if(count2 >= delay_2)
     {
       digitalWrite(OD_2,LOW);
       level_2 = 0;
-      Serial.print("OD2: ");
-      Serial.println(level_2);
+      if(last_level_2 != level_2)
+      {
+        Serial.print("\r\nOD2: ");
+        Serial.println(level_2);
+        Serial.print("\r\n> ");
+        last_level_2 = level_2;
+      }
     }
   }
   //Millis timer, update 1kHz
