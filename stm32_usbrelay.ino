@@ -176,6 +176,8 @@ void printMenu(uint8 menu2)
       Serial.println(">   t[r/w] a[address: 0-999] d[data, unsigned int (0-65535)]");
       Serial.println(">  Version");
       Serial.println(">   v");
+      Serial.println(">  Status");
+      Serial.println(">   s");
       Serial.println(">  Soft Reset");
       Serial.println(">   z");
       Serial.println(">  Help (Prints this menu)");
@@ -377,7 +379,7 @@ void loop() {
             Serial.print("OD1: ");
             Serial.print(level_1);
             Serial.print(", ");
-            Serial.print(delay_1*10);
+            Serial.print(delay_1*100);
             Serial.print("ms");
             Serial.print("\r\n> ");
           }
@@ -393,7 +395,7 @@ void loop() {
             Serial.print("OD2: ");
             Serial.print(level_2);
             Serial.print(", ");
-            Serial.print(delay_2*10);
+            Serial.print(delay_2*100);
             Serial.print("ms");
             Serial.print("\r\n> ");
           }
@@ -493,8 +495,6 @@ void loop() {
         Serial.print(delay_1);
         Serial.print(", d2: ");
         Serial.print(delay_2);
-        Serial.print(", rfsd: ");
-        Serial.println(rfswdelay);
         Serial.print("\r\n> ");
         break;
       case '?':
@@ -520,12 +520,16 @@ void loop() {
     {
       digitalWrite(OD_1,LOW);
       level_1 = 0;
+      Serial.print("OD1: ");
+      Serial.println(level_1);
     }
     count2++;
     if(count2 >= delay_2)
     {
       digitalWrite(OD_2,LOW);
       level_2 = 0;
+      Serial.print("OD2: ");
+      Serial.println(level_2);
     }
   }
   //Millis timer, update 1kHz
