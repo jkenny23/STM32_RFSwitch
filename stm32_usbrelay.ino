@@ -20,13 +20,14 @@
 #define RFSW_2 PB8
 #define OD_1 PB7
 #define OD_2 PB6
+#define RELAY PB5
 
 #define DEF_LEVEL 0
 #define DEF_DELAY 10
 #define MIN_DELAY 1
 #define MAX_DELAY 650
 
-const char vers[] = "0.1-04052020"; 
+const char vers[] = "0.1-04072020"; 
 
 //Initialize reference voltage with default until read out of EEPROM
 #define RFSWDELAYINIT 50
@@ -45,6 +46,7 @@ uint8 rfsw_1 = DEF_LEVEL;
 uint8 rfsw_2 = DEF_LEVEL;
 uint8 rfsw_pos = 1;
 uint8 rfsw_last_pos = 2;
+uint8 relay_pos = 0;
 uint16 count1 = 0;
 uint16 count2 = 0;
 uint16 countrf = 0;
@@ -58,7 +60,7 @@ boolean newData = false;
 void recvWithStartEndMarkers() {
   static boolean recvInProgress = false;
   static byte ndx = 0;
-  char startMarkers[] = {'t', '?', 'v', 's', 'o', 'r', 'z'};
+  char startMarkers[] = {'t', '?', 'v', 's', 'o', 'r', 'z', 'l'};
   char endMarkers[] = {'\n', '\r'};
   char rc;
 
@@ -112,7 +114,7 @@ void recvWithStartEndMarkers() {
     }
 
     else if (rc == startMarkers[0] || rc == startMarkers[1] || rc == startMarkers[2] || rc == startMarkers[3]
-             || rc == startMarkers[4] || rc == startMarkers[5] || rc == startMarkers[6]) {
+             || rc == startMarkers[4] || rc == startMarkers[5] || rc == startMarkers[6] || rc == startMarkers[7]) {
       /*Serial.println("Received startMarker");
         Serial.print("ndx=");
         Serial.println(ndx);
@@ -171,6 +173,8 @@ void printMenu(uint8 menu2)
       Serial.println("> Select Mode:");
       Serial.println(">  RF Switch");
       Serial.println(">   r[1-2]");
+      Serial.println(">  Relay (1=off, 2=on)");
+      Serial.println(">   l[1-2]");
       Serial.println(">  Open Drain Output");
       Serial.println(">   o[1-2] l[level: 0 = open, 1 = low] d[delay, x0.1s]");
       Serial.println(">            def.0,                      def.10 (1s)");
@@ -310,6 +314,8 @@ void setup() {
   digitalWrite(OD_1,LOW);
   pinMode(OD_2,OUTPUT);
   digitalWrite(OD_2,LOW);
+  pinMode(RELAY,OUTPUT);
+  digitalWrite(RELAY,LOW);
 
   delay(5000);
 
@@ -423,6 +429,26 @@ void loop() {
           Serial.print("\r\n> ");
         }
         break;
+      case 'l':
+        if(args[0][1] == '1')
+        {
+          relay_pos = 0;
+          digitalWrite(RELAY,LOW);
+          Serial.println("\r\n");
+          Serial.print("Relay: ");
+          Serial.print(relay_pos);
+          Serial.print("\r\n> ");
+        }
+        else if(args[0][1] == '2')
+        {
+          relay_pos = 1;
+          digitalWrite(RELAY,HIGH);
+          Serial.println("\r\n");
+          Serial.print("Relay: ");
+          Serial.print(relay_pos);
+          Serial.print("\r\n> ");
+        }
+        break;
       case 't':
         if(args[0][1] == 'w')
         {
@@ -499,6 +525,8 @@ void loop() {
         Serial.print(delay_1);
         Serial.print(", d2: ");
         Serial.print(delay_2);
+        Serial.print(", rly: ");
+        Serial.print(relay_pos);
         Serial.print("\r\n> ");
         break;
       case '?':
