@@ -5,6 +5,8 @@ Usage:
 
 RF Switch: r[1-2]
 
+DPDT Relay: l[1-2]
+
 Open Drain Output: o[1-2] l[level: 0 = open, 1 = low, default 0] d[delay, x0.1s, deafult 10 (1s)]
 
 Cal R/W Mode: t[r/w] a[address: 0-999] d[data, unsigned int (0-65535)]
