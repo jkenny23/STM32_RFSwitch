@@ -1,5 +1,7 @@
 # STM32_RFSwitch
-RF switch and open-drain button press emulator controller
+12V RF switch/DC relay controller (7 channels) and open-drain button press emulator (6 channels) with switchable USB2.0/USB3.0 ports with independent voltage/current monitoring. Includes 2 thermistor channels, and 2 spare ADC, 2 spare GPIO, and 1 spare GPI channel.
+
+Zip file contains Gerbers ready for fab (2-up panel), and xlsx files contain BOM/component placement list also needed for fab by JLCPCB SMT service. Estimated cost is $61.77 for PCBA including DHL shipping (10 boards total, 5 panels), plus $18.12 for additional components from LCSC (through hole headers, inductor, USB connectors), and $16.86 for the STM32 "blue pill" microcontroller boards, for a total of $96.75 ($9.68 per board).
 
 Usage:
 
@@ -18,7 +20,3 @@ Status: s
 Soft Reset: z
 
 Help (Prints this menu): ?
-
-Controls a Ducommun 2SE1T11JB RF SPDT relay (latching, active high) via 2N7002P (N-FET to pull P-FET gate low) + ME20P03 (P-FET to 12V source). Default switching pulse is 50ms (datasheet claims 20ms switching time).
-Controls a device under test via 2 button press emulators consisting of 2N7002P (N-FET in open drain config).
-Includes B6286 module for boosting 5V from USB to 12V for RF relay
