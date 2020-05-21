@@ -20,3 +20,7 @@ Status: s
 Soft Reset: z
 
 Help (Prints this menu): ?
+
+# Errata
+The +/- input are swapped for the MCP6002 op-amp 2 (USB3.0 current measurement). The traces need to be cut and jumpered per the image below:
+![HW Fix for v1.0](/v1p0_errata_fix.png)
