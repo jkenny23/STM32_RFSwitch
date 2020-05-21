@@ -5,11 +5,13 @@ Zip file contains Gerbers ready for fab (2-up panel), and xlsx files contain BOM
 
 Usage:
 
-RF Switch: r[1-2]
+RF Switch: r[1-7]
 
-DPDT Relay: l[1-2]
+USB2.0 Power Control: l[1-2, 1=off, 2=on]
 
-Open Drain Output: o[1-2] l[level: 0 = open, 1 = low, default 0] d[delay, x0.1s, deafult 10 (1s)]
+USB3.0 Power Control:  m[1-2, 1=off, 2=on]
+
+Open Drain Output: o[1-6] l[level: 0 = open, 1 = low, default 0] d[delay, x0.1s, deafult 10 (1s)]
 
 Cal R/W Mode: t[r/w] a[address: 0-999] d[data, unsigned int (0-65535)]
 
