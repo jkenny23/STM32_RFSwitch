@@ -23,6 +23,13 @@ Soft Reset: z
 
 Help (Prints this menu): ?
 
+# Compatible RF Switches
+
+| RF Switch P/N | RF Switch Mfg. | RF Switch Config | # IOs | CH/CL | Notes                                                             | RF Switch Datasheet                                                                        | Approx. Price         |
+|---------------|----------------|------------------|-------|-------|-------------------------------------------------------------------|--------------------------------------------------------------------------------------------|-----------------------|
+| 2SE1T11JB     | Ducommun       | SPDT             | 2     | CL    |                                                                   | https://www.ducommun.com/pdf/mwcat/2s.pdf                                                  | $18.75-20             |
+| 431-420823    | Dow-Key        | SP3T             | 3     | CH    | Remove pull up resistor (R5/R15/R19/R25/R38/R47/R55) for IOs used | https://www.dowkey.com/wp-content/uploads/2015/06/_plk49_1_431461_Latching_CatalogPage.pdf | ~$36 (similar models) |
+
 # Errata
 The +/- input are swapped for the MCP6002 op-amp 2 (USB3.0 current measurement). The traces need to be cut and jumpered per the image below:
 
